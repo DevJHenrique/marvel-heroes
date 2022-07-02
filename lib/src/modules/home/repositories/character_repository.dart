@@ -1,10 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:marvel_heroes/src/modules/home/models/character_model.dart';
-
 import 'interfaces/character_repository_interface.dart';
-import 'package:flutter/services.dart' show rootBundle;
 
 class CharacterRepository implements ICharacterRepository {
   final applicationFileData = 'assets/application.json';
@@ -24,7 +21,7 @@ class CharacterRepository implements ICharacterRepository {
   @override
   Future<List<CharacterModel>> getCharactersByType(String type) {
     final json = jsonDecode(File(applicationFileData).readAsStringSync());
-    List<dynamic> heroes = json['type'] as List;
+    List<dynamic> heroes = json[type] as List;
     List<CharacterModel> characters = [];
     for (var element in heroes) {
       characters.add(CharacterModel.fromMap(element as Map<String, dynamic>));
